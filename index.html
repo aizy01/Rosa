@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>ROSA B&B</title>
+  <link rel="stylesheet" href="./style.css">
+<meta name="viewport" content="width=390, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<style> 
+body {
+  margin: 0;
+  padding: 0;
+  width: 559px;
+  height: 844px;
+  font-family: sans-serif;
+  background-color: #0d0d1a;
+  color: white;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+.container {
+  position: absolute;
+  left: 50%;
+  top: 60px;
+  transform: translate(-50%);
+}
+
+.glass {
+  height: 350px;
+  width: 200px;
+  background: #122139;
+  border-radius: 300px 300px 0px 0px;
+}
+.glass:before {
+  content: "";
+  height: 10px;
+  width: 10px;
+  transform-origin: center;
+  border: 10px solid #122139;
+  border-radius: 100%;
+  position: absolute;
+  left: 87px;
+  top: -25px;
+}
+.glass:after {
+  content: "";
+  position: absolute;
+  height: 15px;
+  width: 250px;
+  background: #a52a2a;
+  top: 100%;
+  left: -13%;
+}
+
+.shine {
+  width: 12px;
+  height: 140px;
+  background: white;
+  opacity: 0.2;
+  position: absolute;
+  left: 85%;
+  top: 80px;
+  border-radius: 100px;
+  z-index: 10;
+}
+.shine:before {
+  content: "";
+  width: 12px;
+  height: 20px;
+  position: absolute;
+  background: white;
+  top: 160px;
+  border-radius: 100px;
+}
+
+.petals > div {
+  position: absolute;
+  background: #d52d58;
+  width: 45px;
+  height: 80px;
+  top: 55px;
+  transition: all 0.5s ease-out;
+}
+.petals > div:nth-child(1) {
+  border-radius: 15px;
+  box-shadow: 0px 0px 30px #f594b8;
+  left: 80px;
+  top: 60px;
+  background: #d52d58;
+}
+.petals > div:nth-child(2), .petals > div:nth-child(4), .petals > div:nth-child(6) {
+  background: #b81b43;
+  left: 60px;
+  border-radius: 0px 30px 0px 30px;
+  transform-origin: bottom right;
+}
+.petals > div:nth-child(3), .petals > div:nth-child(5), .petals > div:nth-child(7) {
+  background: #b81b43;
+  left: 100px;
+  border-radius: 30px 0px 30px 0px;
+  transform-origin: bottom left;
+}
+.petals > div:nth-child(2) {
+  z-index: 5;
+  background: #ab1a3f;
+  top: 75px;
+  height: 70px;
+  box-shadow: 0px 0px 50px rgba(245, 148, 184, 0.5);
+  animation: bloom2 3s ease-in-out;
+  animation-fill-mode: forwards;
+}
+.petals > div:nth-child(3) {
+  z-index: 4;
+  background: #ab1a3f;
+  top: 75px;
+  height: 70px;
+  box-shadow: 0px 0px 50px rgba(245, 148, 184, 0.5);
+  animation: bloom3 3s ease-in-out, glowing 2.5s ease-in-out infinite;
+  animation-fill-mode: forwards;
+}
+.petals > div:nth-child(4) {
+  z-index: 3;
+  background: #b81b43;
+  top: 70px;
+  height: 75px;
+  box-shadow: 0px 0px 50px rgba(245, 148, 184, 0.5);
+  animation: bloom4 3s ease-in-out, glowing 2.5s ease-in-out infinite;
+  animation-fill-mode: forwards;
+}
+.petals > div:nth-child(5) {
+  z-index: 2;
+  background: #b81b43;
+  top: 70px;
+  height: 75px;
+  box-shadow: 0px 0px 50px rgba(245, 148, 184, 0.5);
+  animation: bloom5 3s ease-in-out, glowing 2.5s ease-in-out infinite;
+  animation-fill-mode: forwards;
+}
+.petals > div:nth-child(6) {
+  z-index: 1;
+  background: #c9204b;
+  top: 65px;
+  height: 70px;
+  box-shadow: 0px 0px 50px rgba(245, 148, 184, 0.3);
+  animation: bloom6 3s ease-in-out, glowing 2.5s ease-in-out infinite;
+  animation-fill-mode: forwards;
+}
+.petals > div:nth-child(7) {
+  z-index: 0;
+  background: #c9204b;
+  top: 65px;
+  height: 70px;
+  box-shadow: 0px 0px 50px rgba(245, 148, 184, 0.3);
+  animation: bloom7 3s ease-in-out, glowing 2.5s ease-in-out infinite;
+  animation-fill-mode: forwards;
+}
+
+.deadPetals > div {
+  position: absolute;
+  background: #d52d58;
+  width: 20px;
+  height: 15px;
+  top: 120px;
+  border-radius: 0px 30px 0px 30px;
+  box-shadow: 0px 0px 30px rgba(245, 148, 184, 0.5);
+  transition: all 0.5s ease-out;
+}
+.deadPetals > div:nth-child(1) {
+  left: 67px;
+  transform: rotate(-30deg);
+  animation: falling 20s 4s ease-in-out infinite;
+}
+.deadPetals > div:nth-child(2) {
+  left: 104px;
+  transform: rotate(-30deg);
+  animation: falling 20s 8s ease-in-out infinite;
+}
+.deadPetals > div:nth-child(3) {
+  left: 91px;
+  transform: rotate(-30deg);
+  animation: falling 20s 12s ease-in-out infinite;
+}
+.deadPetals > div:nth-child(4) {
+  left: 69px;
+  transform: rotate(-30deg);
+  animation: falling 20s 16s ease-in-out infinite;
+}
+
+.leaves > div:nth-last-child(1) {
+  position: absolute;
+  width: 55px;
+  height: 30px;
+  background: #338f37;
+  top: 120px;
+  left: 75px;
+  border-radius: 100px;
+}
+.leaves > div:nth-child(1) {
+  position: absolute;
+  width: 6px;
+  height: 210px;
+  background: #054c05;
+  top: 95px;
+  left: 100px;
+  border-radius: 0 0 100px 100px;
+}
+.leaves > div:nth-child(2) {
+  position: absolute;
+  width: 30px;
+  height: 50px;
+  top: 53px;
+  border-radius: 5px 40px 20px 40px;
+  background: #054c05;
+  transform-origin: bottom;
+  transform: rotate(-30deg);
+  top: 180px;
+  left: 80px;
+  box-shadow: inset 5px 5px #066406;
+}
+.leaves > div:nth-child(3) {
+  position: absolute;
+  width: 30px;
+  height: 50px;
+  top: 53px;
+  border-radius: 40px 5px 40px 20px;
+  background: #054c05;
+  transform-origin: bottom;
+  transform: rotate(30deg);
+  top: 150px;
+  left: 95px;
+  box-shadow: inset -5px 5px #066406;
+}
+
+.thorns > div {
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: 140px;
+}
+.thorns > div:nth-child(odd) {
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid #054c05;
+  left: 105px;
+}
+.thorns > div:nth-child(even) {
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-right: 5px solid #054c05;
+  left: 95px;
+}
+.thorns > div:nth-child(1) {
+  top: 200px;
+}
+.thorns > div:nth-child(2) {
+  top: 170px;
+}
+.thorns > div:nth-child(4) {
+  top: 230px;
+}
+
+@keyframes bloom2 {
+  50% {
+    transform: rotate(-90deg);
+    top: 200px;
+    left: 100px;
+  }
+  100% {
+    transform: rotate(-60deg);
+    top: 252px;
+    left: 50px;
+    background: #71122a;
+    box-shadow: 0px 0px 0px rgba(245, 148, 184, 0);
+  }
+}
+@keyframes bloom3 {
+  100% {
+    transform: rotate(45deg);
+  }
+}
+@keyframes bloom4 {
+  100% {
+    transform: rotate(-20deg);
+  }
+}
+@keyframes bloom5 {
+  100% {
+    transform: rotate(20deg);
+  }
+}
+@keyframes bloom6 {
+  100% {
+    transform: rotate(-5deg);
+  }
+}
+@keyframes bloom7 {
+  100% {
+    transform: rotate(5deg);
+  }
+}
+@keyframes glowing {
+  50% {
+    background: #d7365f;
+    box-shadow: 0px 0px 60px #f594b8;
+  }
+}
+@keyframes falling {
+  20% {
+    top: 335px;
+    background: #9d193b;
+    box-shadow: 0px 0px 0px rgba(245, 148, 184, 0);
+  }
+  100% {
+    top: 335px;
+    opacity: 0;
+  }
+}
+
+.line {
+  position: relative;
+  margin-left: 50px;
+  width: 81%;
+  height: 4px;
+  background-color: #f78da7;
+  box-shadow: 0 0 20px #f78da7;
+  margin-top: 500px auto 100px auto;
+  border-radius: 50px;
+  border: none;
+  margin-top: 15px;
+  
+}
+.linha {
+  position: relative;
+  margin-left: 50px;
+  width: 81%;
+  height: 4px;
+  background-color: #f78da7;
+  box-shadow: 0 0 20px #f78da7;
+  margin-top: 500px auto 100px auto;
+  border-radius: 50px;
+  border: none;
+  margin-top: 1px;
+}
+.h1 {
+  margin-top:30px;
+  
+}
+.botao-rosa-animado {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #ff99bb;
+  border: none;
+  cursor: pointer;
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  animation: pulse 2s infinite;
+  box-shadow: 0 0 15px #f78da7, 0 0 30px #f78da7;
+  transition: transform 0.3s ease;
+}
+
+.botao-rosa-animado:hover {
+  transform: scale(1.1);
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 10px #f78da7, 0 0 20px #f78da7;
+  }
+  50% {
+    box-shadow: 0 0 20px #ffb6c1, 0 0 40px #ffb6c1;
+  }
+  100% {
+    box-shadow: 0 0 10px #f78da7, 0 0 20px #f78da7;
+  }
+}
+.caixa-declaracao {
+  position: relative;
+  width: 90%;
+  max-width: 420px; /* ⬅ reduzido para caber melhor no celular */
+  margin: 50px auto;
+  padding: 20px 25px;
+  background: rgba(255, 240, 245, 0.1);
+  border: 1.5px solid #f78da7;
+  border-radius: 16px;
+  box-shadow: 0 0 15px #f78da7;
+  backdrop-filter: blur(8px);
+  color: white;
+  font-family: 'Georgia', serif;
+  font-size: 16px;
+  z-index: 1;
+  margin-top:12px;
+}
+.texto-declaracao h2 {
+  color: #f78da7;
+  font-size: 22px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+.texto-declaracao p {
+  font-size: 15px;
+  line-height: 1.6;
+  text-align: justify;
+}
+
+.petalas-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.petala {
+  position: absolute;
+  top: 0px;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle, #f78da7 30%, transparent 70%);
+  border-radius: 50%;
+  animation: cair 8s linear infinite;
+  opacity: 0.8;
+}
+
+.petala:nth-child(1) { left: 10%; animation-delay: 0s; }
+.petala:nth-child(2) { left: 30%; animation-delay: 2s; }
+.petala:nth-child(3) { left: 50%; animation-delay: 4s; }
+.petala:nth-child(4) { left: 70%; animation-delay: 1s; }
+.petala:nth-child(5) { left: 90%; animation-delay: 3s; }
+
+@keyframes cair {
+  0% { top: -20px; transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.2); }
+  100% { top: 100%; transform: rotate(360deg) scale(1); }
+}
+.frase-contador {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #ffebf0;
+  font-family: 'Great Vibes', cursive; /* ou substitua por 'Georgia', 'Dancing Script', etc. */
+  line-height: 1.8;
+  margin-bottom: 30px;
+  padding: 0 20px;
+  text-shadow: 1px 1px 2px #ff8fb3;
+  animation: aparecer 2s ease-out;
+}
+
+.frase-contador .destaque {
+  color: #ffc6d9;
+  font-weight: bold;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.timer-container {
+  width: 150px;
+  height: 30px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 40px; /* empurra pra baixo da rosa */
+  margin-left: calc(50% - 105px);
+  justify-items: right;
+  align-items: right;
+  text-align: right;
+  left: 50%;
+  right: 300px;
+}
+
+.time-box {
+  background: #122139;
+  padding: 15px;
+  border-radius: 12px;
+  color: #f0f0f0;
+  font-size: 1.5rem;
+  width: 100px;
+  box-shadow: 0 0 10px #f594b8;
+}
+
+.time-box small {
+  display: block;
+  font-size: 0.8rem;
+  margin-top: 5px;
+  color: #ccc;
+}
+
+    @keyframes bloom2 { 100% { transform: rotate(-60deg); top: 252px; left: 50px; } }
+    @keyframes bloom3 { 100% { transform: rotate(45deg); } }
+    @keyframes bloom4 { 100% { transform: rotate(-20deg); } }
+    @keyframes bloom5 { 100% { transform: rotate(20deg); } }
+    @keyframes bloom6 { 100% { transform: rotate(-5deg); } }
+    @keyframes bloom7 { 100% { transform: rotate(5deg); } }
+
+    @keyframes glowing {
+      50% {
+        background: #d7365f;
+        box-shadow: 0 0 60px #f594b8;
+      }
+    }
+</style>
+</head>
+<body>
+<div class="container">
+	<div class="glass">
+    <div class="shine"></div>
+  </div>
+	<div class="thorns">
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
+	<div class="leaves">
+		<div></div>
+		<div></div>
+    <div></div>
+    <div></div>
+	</div>
+	<div class="petals">
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
+  <div class="deadPetals">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>  
+<p style="
+  text-align: center;
+  font-style: italic;
+  color: #f78da7;
+  margin-top: 440px;
+  text-shadow: 0 0 10px #f78da7;
+  font-family: 'Georgia', serif;">
+  “Foi o tempo que dedicaste à tua rosa que a fez tão importante.”
+</p>
+    <div class="line"></div>
+    <!-- NOME -->
+<h1 style="text-align: center; font-size: 40px;">
+  <span style="color: #ff1493; text-shadow: 1px 1px 2px #000; letter-spacing: -3px;">Aizyxz</span>
+  <span style="color: white; letter-spacing: -4px;"> & </span>
+  <span style="color: #00bfff; text-shadow: 1px 1px -3px #000;">Cortez</span>
+</h1>
+ <div class="linha"></div>
+ 
+ <div class="caixa-declaracao">
+  <div class="texto-declaracao">
+      <h2>“Só se vê bem com o coração. O essencial é invisível aos olhos.”<br>— O Pequeno Príncipe</h2>
+
+    <p>No meio de tantas estrelas, mundos e encontros, <strong>você é a minha rosa</strong>.<br>
+    Único. Diferente de todos os outros.</p>
+
+    <p>Cultivar você é como cuidar de algo sagrado — dia após dia.<b>
+    E mesmo quando o universo parece grande demais, <strong>bastam os seus olhos</strong> para me lembrar que estou exatamente onde deveria estar.</p>
+
+    <p><strong>Você floresce no meu coração.</strong><br>
+    Não por ser perfeito, mas por ser meu.<br>
+    E porque juntos, mesmo nas tempestades, seguimos regando esse amor.</p>
+
+    <p>Se algum dia alguém me perguntar por que te escolhi...<br>
+    Eu direi apenas:<br>
+    <em>"Ele é a minha rosa."</em></p>
+          <h2>“Tu te tornas eternamente responsável por aquilo que cativas.”<br>— O Pequeno Príncipe</h2>
+           🦊 Raposa:<br> 
+          — Não posso brincar contigo. Não me cativaram 
+ainda..</p>
+
+<p>🦊 <br>
+— É uma coisa muito esquecida… Significa “criar laços”.</p>
+
+<p>🦊<br>
+— Tu não és ainda para mim senão um 
+
+garoto inteiramente igual a cem mil outros garotos. E eu não tenho 
+
+necessidade de ti. E tu não tens também necessidade de mim. Não 
+passo a teus olhos de uma raposa igual a cem mil outras raposas. Mas, 
+se tu me cativas, nós teremos necessidade um do outro. Serás para 
+mim o único no mundo. E eu serei para ti única no mundo
+    <h2>LOVE</h2>
+    <p>
+      Você talvez não saiba, mas pra mim… você é como aquela rosa do Pequeno Príncipe. <br><br>
+      Eu escolhi te cuidar. Estar aqui mesmo quando o mundo parece virar do avesso.<br><br>
+      Você me ensina, sem nem perceber. Com seu jeito, com suas falas, com seus silêncios também.<br><br>
+      Tem tanta gente por aí, mas foi você que fez o meu coração parar.<br>
+      Foi você que eu quis regar, mesmo com os espinhos de vez em quando.<br><br>
+      Porque te amar é isso: <strong>é continuar escolhendo você. Todos os dias.</strong>
+    </p>
+          <h2>Tu serás para mim único no mundo.<br>
+          &<br>
+Eu serei para ti única no mundo.</p>— O Pequeno Príncipe</h2>
+  </div>
+  <div class="petalas-container">
+    <!-- Várias pétalas animadas -->
+    <span class="petala"></span>
+    <span class="petala"></span>
+    <span class="petala"></span>
+    <span class="petala"></span>
+    <span class="petala"></span>
+  </div>
+</div>
+<p class="frase-contador">
+  <span class="destaque">Desde que te escolhi,</span><br>
+  venho contando <span class="destaque">não só os dias...</span><br>
+  mas <span class="destaque">cada instante ao teu lado.</span>
+</p>
+<div class="timer-container">
+  <div class="time-box"><span id="years">0</span><small>Anos</small></div>
+  <div class="time-box"><span id="months">0</span><small>Meses</small></div>
+  <div class="time-box"><span id="days">0</span><small>Dias</small></div>
+  <div class="time-box"><span id="hours">00</span><small>Horas</small></div>
+  <div class="time-box"><span id="minutes">00</span><small>Min</small></div>
+  <div class="time-box"><span id="seconds">00</span><small>Seg</small></div>
+</div>
+
+ <!-- BOTÃO COM ROSA ANIMADO -->
+<button id="botao-musica" class="botao-rosa-animado">🌹</button>
+<audio id="player"></audio>
+    <script>
+      // Parte 1 – Contador desde a data do namoro
+  const startDate = new Date("2025-03-20T00:00:00");
+
+  setInterval(() => {
+    const now = new Date();
+    let delta = now - startDate;
+
+    const years = now.getFullYear() - startDate.getFullYear();
+    const months = now.getMonth() - startDate.getMonth() + years * 12;
+    const daysTotal = Math.floor(delta / (1000 * 60 * 60 * 24));
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
+
+    document.getElementById("years").textContent = Math.floor(months / 12);
+    document.getElementById("months").textContent = months % 12;
+    document.getElementById("days").textContent = daysTotal;
+    document.getElementById("hours").textContent = String(hours).padStart(2, '0');
+    document.getElementById("minutes").textContent = String(minutes).padStart(2, '0');
+    document.getElementById("seconds").textContent = String(seconds).padStart(2, '0');
+  }, 1000);
+
+  // Parte 2 – Botão da música
+  const musicas = [
+    "pequeno.mp3",
+    "raposa.mp3",
+    "cativaste.mp3"
+  ];
+
+  const botao = document.getElementById("botao-musica");
+  const player = document.getElementById("player");
+
+  botao.addEventListener("click", () => {
+    const aleatoria = musicas[Math.floor(Math.random() * musicas.length)];
+    player.src = aleatoria;
+    player.play();
+  });
+</script>
+<footer style="text-align: center; padding: 20px; color: #ffb6c1; font-size: 14px; margin-top:300px">
+  © 2025 — Criado com carinho por @aizyxz
+</body>
+</html>
