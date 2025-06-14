@@ -643,23 +643,35 @@ Eu serei para ti única no mundo.</p>— O Pequeno Príncipe</h2>
   const startDate = new Date("2025-03-20T00:00:00");
 
   setInterval(() => {
-    const now = new Date();
-    let delta = now - startDate;
+  const now = new Date();
+  let years = now.getFullYear() - startDate.getFullYear();
+  let months = now.getMonth() - startDate.getMonth();
+  let days = now.getDate() - startDate.getDate();
 
-    const years = now.getFullYear() - startDate.getFullYear();
-    const months = now.getMonth() - startDate.getMonth() + years * 12;
-    const daysTotal = Math.floor(delta / (1000 * 60 * 60 * 24));
-    const hours = now.getHours();
-    const minutes = now.getMinutes();
-    const seconds = now.getSeconds();
+  // Ajustes se o dia atual for menor que o dia inicial
+  if (days < 0) {
+    months--;
+    const lastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+    days += lastMonth.getDate();
+  }
 
-    document.getElementById("years").textContent = Math.floor(months / 12);
-    document.getElementById("months").textContent = months % 12;
-    document.getElementById("days").textContent = daysTotal;
-    document.getElementById("hours").textContent = String(hours).padStart(2, '0');
-    document.getElementById("minutes").textContent = String(minutes).padStart(2, '0');
-    document.getElementById("seconds").textContent = String(seconds).padStart(2, '0');
-  }, 1000);
+  // Ajustes se o mês atual for menor que o mês inicial
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const seconds = now.getSeconds();
+
+  document.getElementById("years").textContent = years;
+  document.getElementById("months").textContent = months;
+  document.getElementById("days").textContent = days;
+  document.getElementById("hours").textContent = String(hours).padStart(2, '0');
+  document.getElementById("minutes").textContent = String(minutes).padStart(2, '0');
+  document.getElementById("seconds").textContent = String(seconds).padStart(2, '0');
+}, 1000);
 
   // Parte 2 – Botão da música
   const musicas = [
